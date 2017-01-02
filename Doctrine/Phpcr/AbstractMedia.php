@@ -11,11 +11,10 @@
 
 namespace Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr;
 
-use Doctrine\ODM\PHPCR\HierarchyInterface as PhpcrHierarchyInterface;
-use Symfony\Cmf\Bundle\MediaBundle\HierarchyInterface;
+use Doctrine\ODM\PHPCR\HierarchyInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Model\AbstractMedia as ModelAbstractMedia;
 
-abstract class AbstractMedia extends ModelAbstractMedia implements HierarchyInterface, PhpcrHierarchyInterface
+abstract class AbstractMedia extends ModelAbstractMedia implements HierarchyInterface
 {
     /**
      * @var object
@@ -47,22 +46,6 @@ abstract class AbstractMedia extends ModelAbstractMedia implements HierarchyInte
     public function getParentDocument()
     {
         return $this->parent;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setParent($parent)
-    {
-        return $this->setParentDocument($parent);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return $this->getParentDocument();
     }
 
     /**

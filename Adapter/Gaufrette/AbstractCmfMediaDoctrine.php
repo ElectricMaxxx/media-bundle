@@ -19,7 +19,7 @@ use Gaufrette\Adapter\MetadataSupporter;
 use Gaufrette\Util;
 use Symfony\Cmf\Bundle\MediaBundle\DirectoryInterface;
 use Symfony\Cmf\Bundle\MediaBundle\FileInterface;
-use Symfony\Cmf\Bundle\MediaBundle\HierarchyInterface;
+use Doctrine\ODM\PHPCR\HierarchyInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MetadataInterface;

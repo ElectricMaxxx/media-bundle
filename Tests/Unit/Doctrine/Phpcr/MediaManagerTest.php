@@ -107,7 +107,7 @@ class MediaManagerTest extends \PHPUnit_Framework_TestCase
         $mediaManager->setManagerName($managerName);
         $mediaManager->setDefaults($media);
 
-        $this->assertEquals($this->testRoot, $media->getParent());
+        $this->assertEquals($this->testRoot, $media->getParentDocument());
         if ($expectedName) {
             $this->assertEquals($expectedName, $media->getName());
         } else {

@@ -32,13 +32,13 @@ class LoadMediaData implements FixtureInterface
         // media root
         $mediaRoot = new Generic();
         $mediaRoot->setNodename('media');
-        $mediaRoot->setParent($root);
+        $mediaRoot->setParentDocument($root);
         $manager->persist($mediaRoot);
 
         // content root
         $contentRoot = new Generic();
         $contentRoot->setNodename('content');
-        $contentRoot->setParent($root);
+        $contentRoot->setParentDocument($root);
         $manager->persist($contentRoot);
 
         // File

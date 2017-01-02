@@ -122,9 +122,9 @@ class MediaManager implements MediaManagerInterface
             $media->setName($media->getName().'_'.time().'_'.rand().($ext ? '.'.$ext : ''));
         }
 
-        if (!$media->getParent()) {
+        if (!$media->getParentDocument()) {
             $parent = $dm->find(null, PathHelper::getParentPath($path));
-            $media->setParent($parent);
+            $media->setParentDocument($parent);
         }
     }
 

@@ -11,6 +11,8 @@
 
 namespace Symfony\Cmf\Bundle\MediaBundle;
 
+use Doctrine\ODM\PHPCR\HierarchyInterface;
+
 /**
  * Interface for objects containing a file.
  *
