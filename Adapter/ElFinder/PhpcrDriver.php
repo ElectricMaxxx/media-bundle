@@ -13,7 +13,6 @@ namespace Symfony\Cmf\Bundle\MediaBundle\Adapter\ElFinder;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ODM\PHPCR\Document\Generic;
-use Doctrine\ODM\PHPCR\Document\Resource;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use FM\ElFinderPHP\Driver\ElFinderVolumeDriver;
 use Imagine\Filter\ FilterInterface;
@@ -23,7 +22,7 @@ use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Directory;
 use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\File;
 use Symfony\Cmf\Bundle\MediaBundle\Doctrine\Phpcr\Image;
 use Symfony\Cmf\Bundle\MediaBundle\FileInterface;
-use Symfony\Cmf\Bundle\MediaBundle\HierarchyInterface;
+use Doctrine\ODM\PHPCR\HierarchyInterface;
 use Symfony\Cmf\Bundle\MediaBundle\ImageInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Templating\Helper\CmfMediaHelper;

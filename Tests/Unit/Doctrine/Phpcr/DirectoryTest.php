@@ -25,8 +25,8 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase
 
         $dir->addChild($subDir);
 
-        $this->assertNull($dir->getParent());
-        $this->assertNull($subDir->getParent());
+        $this->assertNull($dir->getParentDocument());
+        $this->assertNull($subDir->getParentDocument());
         $this->assertCount(1, $dir->getChildren());
         $this->assertCount(0, $subDir->getChildren());
     }
@@ -41,8 +41,8 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase
 
         $subDir->setParent($dir);
 
-        $this->assertNull($dir->getParent());
-        $this->assertEquals($dir, $subDir->getParent());
+        $this->assertNull($dir->getParentDocument());
+        $this->assertEquals($dir, $subDir->getParentDocument());
         $this->assertCount(1, $dir->getChildren());
         $this->assertCount(0, $subDir->getChildren());
     }
@@ -67,10 +67,10 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase
         $media = new $class();
         $media->setName('media');
 
-        $media->setParent($dir);
+        $media->setParentDocument($dir);
 
-        $this->assertNull($dir->getParent());
-        $this->assertEquals($dir, $media->getParent());
+        $this->assertNull($dir->getParentDocument());
+        $this->assertEquals($dir, $media->getParentDocument());
         $this->assertCount(1, $dir->getChildren());
         $this->assertEquals($media, $dir->getChildren()->first());
     }
