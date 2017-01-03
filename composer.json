@@ -34,7 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Symfony\\Cmf\\Bundle\\MediaBundle\\": ""
+            "Symfony\\Cmf\\Bundle\\MediaBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symfony\\Cmf\\Bundle\\MediaBundle\\Tests\\": "tests/"
         }
     },
     "extra": {
