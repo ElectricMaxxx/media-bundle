@@ -120,7 +120,7 @@ class ImagineCacheInvalidatorSubscriber implements EventSubscriber
         // parent. instanceof can handle the case where Resource is not a known
         // class - the condition will just be false in that case.
         if ($object instanceof Resource) {
-            $object = $object->getParent();
+            $object = $object->getParentDocument();
         }
         if (!$object instanceof ImageInterface) {
             return;
