@@ -45,22 +45,23 @@ class ModelToFileTransformer implements DataTransformerInterface
 
         try {
             $file = $this->helper->handleUploadedFile($uploadedFile, $this->options['data_class']);
-            if ($this->options['child_of_node']) {
-                $file->setName($this->options['child_of_node']);
-            }
-
-            if (!isset($this->options['empty_data']) || !$this->options['empty_data'] instanceof FileInterface) {
-                return $file;
-            }
-
-            $emptyDataFile = $this->options['empty_data'];
-            $emptyDataFile->setName($file->getName());
-            $emptyDataFile->setContentFromStream($file->getContentAsStream());
-
-            return $emptyDataFile;
         } catch (UploadException $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
+
+        if (isset($this->options['child_of_node']) && $this->options['child_of_node']) {
+            $file->setName($this->options['child_of_node']);
+        }
+
+        if (!isset($this->options['empty_data']) || !$this->options['empty_data'] instanceof FileInterface) {
+            return $file;
+        }
+
+        $emptyDataFile = $this->options['empty_data'];
+        $emptyDataFile->setName($file->getName());
+        $emptyDataFile->setContentFromStream($file->getContentAsStream());
+
+        return $emptyDataFile;
     }
 
     /**
