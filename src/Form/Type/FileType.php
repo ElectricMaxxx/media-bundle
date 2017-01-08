@@ -78,7 +78,7 @@ class FileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new ModelToFileTransformer($this->uploadFileHelper, $options['data_class']);
+        $transformer = new ModelToFileTransformer($this->uploadFileHelper, $options);
         $builder->addModelTransformer($transformer);
     }
 
@@ -95,6 +95,6 @@ class FileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $options)
     {
-        $options->setDefaults(array('data_class' => $this->dataClass));
+        $options->setDefaults(array('data_class' => $this->dataClass, 'child_of_node' => false));
     }
 }

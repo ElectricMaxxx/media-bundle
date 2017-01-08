@@ -11,7 +11,9 @@
 
 namespace Symfony\Cmf\Bundle\MediaBundle\Form\DataTransformer;
 
+use Doctrine\ODM\PHPCR\Document\File;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
+use Symfony\Cmf\Bundle\MediaBundle\FileInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
@@ -20,16 +22,16 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ModelToFileTransformer implements DataTransformerInterface
 {
     private $helper;
-    private $class;
+    private $options;
 
     /**
      * @param UploadFileHelperInterface $helper
-     * @param string                    $class  Optional class to overwrite generated file class.
+     * @param array $options
      */
-    public function __construct(UploadFileHelperInterface $helper, $class = null)
+    public function __construct(UploadFileHelperInterface $helper, $options)
     {
         $this->helper = $helper;
-        $this->class = $class;
+        $this->options = $options;
     }
 
     /**
@@ -42,7 +44,20 @@ class ModelToFileTransformer implements DataTransformerInterface
         }
 
         try {
-            return $this->helper->handleUploadedFile($uploadedFile, $this->class);
+            $file = $this->helper->handleUploadedFile($uploadedFile, $this->options['data_class']);
+            if ($this->options['child_of_node']) {
+                $file->setName($this->options['child_of_node']);
+            }
+
+            if (!isset($this->options['empty_data']) || !$this->options['empty_data'] instanceof FileInterface) {
+                return $file;
+            }
+
+            $emptyDataFile = $this->options['empty_data'];
+            $emptyDataFile->setName($file->getName());
+            $emptyDataFile->setContentFromStream($file->getContentAsStream());
+
+            return $emptyDataFile;
         } catch (UploadException $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
