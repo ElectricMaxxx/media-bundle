@@ -11,9 +11,7 @@
 
 namespace Symfony\Cmf\Bundle\MediaBundle\Form\DataTransformer;
 
-use Doctrine\ODM\PHPCR\Document\File;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
-use Symfony\Cmf\Bundle\MediaBundle\FileInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
@@ -21,17 +19,24 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ModelToFileTransformer implements DataTransformerInterface
 {
+    /**
+     * @var UploadFileHelperInterface
+     */
     private $helper;
-    private $options;
+
+    /**
+     * @var
+     */
+    private $dataClass;
 
     /**
      * @param UploadFileHelperInterface $helper
-     * @param array $options
+     * @param string $dataClass
      */
-    public function __construct(UploadFileHelperInterface $helper, $options)
+    public function __construct(UploadFileHelperInterface $helper, $dataClass)
     {
         $this->helper = $helper;
-        $this->options = $options;
+        $this->dataClass = $dataClass;
     }
 
     /**
@@ -44,24 +49,10 @@ class ModelToFileTransformer implements DataTransformerInterface
         }
 
         try {
-            $file = $this->helper->handleUploadedFile($uploadedFile, $this->options['data_class']);
+            return $this->helper->handleUploadedFile($uploadedFile, $this->dataClass);
         } catch (UploadException $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
-
-        if (isset($this->options['child_of_node']) && $this->options['child_of_node']) {
-            $file->setName($this->options['child_of_node']);
-        }
-
-        if (!isset($this->options['empty_data']) || !$this->options['empty_data'] instanceof FileInterface) {
-            return $file;
-        }
-
-        $emptyDataFile = $this->options['empty_data'];
-        $emptyDataFile->setName($file->getName());
-        $emptyDataFile->setContentFromStream($file->getContentAsStream());
-
-        return $emptyDataFile;
     }
 
     /**
