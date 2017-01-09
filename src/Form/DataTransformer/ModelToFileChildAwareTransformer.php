@@ -34,20 +34,20 @@ class ModelToFileChildAwareTransformer extends ModelToFileTransformer
     /**
      * @var array
      */
-    private $dataClass;
+    private $class;
 
     /**
      * @param UploadFileHelperInterface $helper
-     * @param $dataClass
+     * @param $class
      * @param $emptyData
      * @param $childOfNode
      */
-    public function __construct(UploadFileHelperInterface $helper, $dataClass, $emptyData = null, $childOfNode = null)
+    public function __construct(UploadFileHelperInterface $helper, $class, $emptyData = null, $childOfNode = null)
     {
-        parent::__construct($helper, $dataClass);
+        parent::__construct($helper, $class);
 
         $this->helper = $helper;
-        $this->dataClass = $dataClass;
+        $this->class = $class;
         $this->emptyData = $emptyData;
         $this->childOfNode = $childOfNode;
     }

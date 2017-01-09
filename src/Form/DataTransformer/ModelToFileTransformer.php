@@ -27,16 +27,16 @@ class ModelToFileTransformer implements DataTransformerInterface
     /**
      * @var
      */
-    private $dataClass;
+    private $class;
 
     /**
      * @param UploadFileHelperInterface $helper
-     * @param string $dataClass
+     * @param string $class
      */
-    public function __construct(UploadFileHelperInterface $helper, $dataClass)
+    public function __construct(UploadFileHelperInterface $helper, $class = null)
     {
         $this->helper = $helper;
-        $this->dataClass = $dataClass;
+        $this->class = $class;
     }
 
     /**
@@ -49,7 +49,7 @@ class ModelToFileTransformer implements DataTransformerInterface
         }
 
         try {
-            return $this->helper->handleUploadedFile($uploadedFile, $this->dataClass);
+            return $this->helper->handleUploadedFile($uploadedFile, $this->class);
         } catch (UploadException $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
